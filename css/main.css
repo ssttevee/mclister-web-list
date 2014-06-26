@@ -1,0 +1,135 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+.tag-btn {
+	margin-bottom: 6px;
+}
+.notification-area {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 9999;
+	padding-top: 15px;
+}
+.top-loading-indicator {
+	position: fixed;
+	top:10px;
+	left: 50%;
+	z-index: 9999;
+	padding: .4em 1em .5em;
+	border: 1px solid #0090de;
+}
+#recaptcha_image, #recaptcha_links {
+	float:left;
+}
+#recaptcha_audio_box {
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+	border: 1px solid #ccc;
+	width: 302px;
+	height: 59px;
+	float:left;
+}
+#recaptcha_image img {
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+#recaptcha_links {
+	height: 59px;
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+	border: 1px solid #ccc;
+	border-left-width: 0px;
+	padding:0px;
+}
+#recaptcha_links li {
+	border-top: 1px solid #ccc;
+	padding: 2px 4px;
+	display: block;
+	list-style-type: none;
+	cursor: pointer;
+}
+#recaptcha_links li:first-child {
+	border-top: 0px;
+}
+.detail-list-group {
+	display: table;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+	padding-left: 0;
+	margin-bottom: 20px;
+	width: 100%;
+}
+.detail-list-set {
+	display: table-row;
+	width: 100%;
+}
+.detail-list-title {
+	background: #f7f7f9;
+	color: #333;
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	display: table-cell;
+	vertical-align: middle;
+	width: 125px;
+}
+.detail-list-detail {
+	padding: 10px 15px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-top-width: 0px;
+	display: table-cell;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+.detail-list-desc {
+	padding: 10px 15px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-top-width: 0px;
+	width:100%;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+.no-bot-margin {
+	margin-bottom: 0px;
+}
+.detail-list-group:last-child .detail-list-set:last-child .detail-list-detail {
+	border-bottom-right-radius: 4px;
+}
+.detail-list-group:last-child .detail-list-set:last-child .detail-list-title {
+	border-bottom-left-radius: 4px;
+}
+.detail-list-group .detail-list-set:first-child .detail-list-detail {
+	border-top-width: 1px;
+	border-top-right-radius: 4px;
+}
+.detail-list-group .detail-list-set:first-child .detail-list-title {
+	border-top-width: 1px;
+	border-top-left-radius: 4px;
+}
+.detail-list-group.chop-top .detail-list-set:first-child .detail-list-detail {
+	border-top-width: 0px;
+	border-top-right-radius: 0;
+}
+.detail-list-group.chop-top .detail-list-set:first-child .detail-list-title {
+	border-top-width: 0px;
+	border-top-left-radius: 0;
+}
+.clef:before{content:"";width:26px;height:20px;background:center url('https://clef.io/static/dist/img/logos/white_100.png');-webkit-background-size:21px 20px;background-size:20px 20px;background-repeat:no-repeat;background-position:0 50%;float:left;margin-right:6px;-webkit-box-shadow:1px 0 0 rgba(255,255,255,.25);box-shadow:1px 0 0 rgba(255,255,255,.25);-moz-font-smoothing:antialiased;-webkit-font-smoothing:antialiased;font-smoothing:antialiased}

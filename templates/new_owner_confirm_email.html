@@ -1,0 +1,9 @@
+<div class="panel panel-default" style="margin-top:-1px;border-top-left-radius:0;border-top-right-radius:0">
+	<div class="panel-body">
+		<p>Hi there,</p><br/>
+		<p>{{ @get_current_user()["name"] }} from McLister, owner of {{ @result[0].name }} Minecraft server, would like to transfer ownership of the server to you.</p>
+		<p>To accept and become the new owner of {{ @result[0].name }}, click the <a href="http://{{ @JAR.domain }}{{ @ALIASES.confirm_tranfer_owner }}?cc={{ @confirmation_code }}" target="_blank">here</a> or paste the following link into the address bar if clicking doesn't work.</p>
+		<center><pre>http://{{ @JAR.domain }}{{ @ALIASES.confirm_tranfer_owner }}?cc={{ @confirmation_code }}</pre></center>
+		<p>*The confirmation link will expire in 48 hours.</p>
+	</div>
+</div>

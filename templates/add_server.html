@@ -1,0 +1,281 @@
+<style>
+.tag-btn {
+	margin-bottom: 6px;
+}
+#editor {
+	overflow:scroll; max-height:300px;
+}
+</style>
+<div class="page-header">
+    <h1>Add a server.</h1>
+</div>
+<div class="row">
+	<form method="post" id="new-server-form">
+		<p class="col-lg-8">Please know that this is a beta service. There will for a fact be constant bugs, glitches, updates, changes and anything else that you'd expect from a beta software. And please do make suggestions, if we think it's a good idea, it will definitely be done promptly.</p>
+		<div class="col-lg-8" id="step-1">
+			<dl>
+			<dt><label for="server-name">Server Name</label></dt>
+			<dd><input type="text" name="name" id="server-name" class="form-control" placeholder="Minecraft Server" /></dd><br/>
+			
+			<dt><label for="server-address">Server Address</label> <span class="label label-success hidden server-addr-confirm" onclick="loadingPing(this);pingServer($('#server-address').val(), $('#server-port').val(), updateUiAfterPing(this));"><span class="glyphicon glyphicon-ok"></span></span></dt>
+			<dd><input type="text" name="address" id="server-address" class="form-control" placeholder="example.com" /></dd><br/>
+			
+			<dt><label for="server-port">Server Port</label></dt>
+			<dd><input type="number" min="0" step="1" name="port" id="server-port" class="form-control" value="25565" placeholder="25565" /></dd><br/>
+			</dl>
+			
+			<a href="#step-2" class="btn btn-primary disabled next" id="step-1-next" onClick="$(this).parent().fadeOut(200, function(){$('#step-2').fadeIn();});return false;" style="float:right;">Next</a>
+		</div>
+		<div class="col-lg-8" style="display:none;" id="step-2">
+			<dl>
+			<dt><label for="server-website">Website</label></dt>
+			<dd><input type="text" name="website" id="server-website" class="form-control" placeholder="http://example.com/" /></dd><br/>
+			
+			<dt><label for="server-query-port">Query Port (aka GS4)</label> <span class="label label-success hidden server-query-confirm" onclick="loadingPing(this);queryPing($('#server-address').val(), parseInt($('#server-query-port').val()), updateUiAfterPing(this));"><span class="glyphicon glyphicon-ok"></span></span></dt>
+			<dd><input type="number" name="queryport" id="server-query-port" min="0" step="1" class="form-control" placeholder="25565" /></dd><br/>
+			
+			<dt><label for="show-plugins">Show Plugins (if available)</label> <span class="badge" data-toggle="tooltip" data-placement="right" title="Server Query may list plugins">?</span></dt>
+			<dd><input type="checkbox" name="showplugins" id="show-plugins" value="true"></dd><br/>
+			</dl>
+			
+			<a href="#step-1" class="btn btn-primary" onClick="$(this).parent().fadeOut(200, function(){$('#step-1').fadeIn();});return false;">Back</a>
+			<a href="#step-3" class="btn btn-primary next" id="step-2-next" onClick="$(this).parent().fadeOut(200, function(){$('#step-3').fadeIn();});return false;" style="float:right;">Next</a>
+		</div>
+		<div class="col-lg-8" style="display:none;" id="step-3">
+			<dl>
+			<dt><label for="tags">Tags</label></dt>
+			<dd data-toggle="buttons">
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="survival">Survival</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="pvp">PvP</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="pve">PvE</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="mcmmo">MCMMO</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="factions">Factions</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="towny">Towny</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="minigames">Mini Games</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="creative">Creative</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="econmy">Economy</label>
+				<label class="btn btn-primary tag-btn"><input type="checkbox" name="tags[]" id="tags" value="modded">Modded</label>
+				<div class="hidden" id="verify-owner-challenge">{{ @verify_owner_key }}</div>
+			</dd><br/>
+			
+			<dt><label for="votifier-port">Votifier Port</label> <span class="label label-success hidden server-votifier-confirm" onclick="loadingPing(this);pingServer($('#server-address').val(), parseInt($('#votifier-port').val()), updateUiAfterPing(this));"><span class="glyphicon glyphicon-ok"></span></span></dt>
+			<dd><input type="number" name="votifierport" id="votifier-port" min="0" step="1" class="form-control" placeholder="8192" /></dd><br/>
+			
+			<dt><label for="votifier-key">Votifier Public Key</label></dt>
+			<dd><textarea name="votifierkey" rows="4" cols="50" id="votifier-key" class="form-control" placeholder="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AM..." ></textarea></dd><br/>
+			</dl>
+			
+			<a href="#step-2" class="btn btn-primary" onClick="$(this).parent().fadeOut(200, function(){$('#step-2').fadeIn();});return false;">Back</a>
+			<a href="#step-4" class="btn btn-primary next" id="step-3-next" onClick="$(this).parent().fadeOut(200, function(){$('#step-4').fadeIn();});return false;" style="float:right;">Next</a>
+		</div>
+		<div class="col-lg-8" style="display:none;" id="step-4">
+			<dl>
+			<dt><label for="server-description">Server Description/Info</label> <span class="badge" data-toggle="tooltip" data-placement="right" title="Allowed Tags: <b><a><i><u><center><h1><h2><h3><h4><h5><h6><em>">?</span></dt>
+			<dd><textarea name="description" rows="8" id="server-description" class="form-control" placeholder="<h1>Something about your server...</h1>" ></textarea></dd><br/>
+			</dl>
+			
+			<a href="#step-3" class="btn btn-primary" onClick="$(this).parent().fadeOut(200, function(){$('#step-3').fadeIn();});return false;">Back</a>
+			<a href="#submit" class="btn btn-primary next" id="step-4-next" style="float:right;" data-toggle="modal" data-target="#verify-owner">Submit</a>
+			
+			<div class="modal fade" id="verify-owner" tabindex="-1" role="dialog" aria-labelledby="verifyOwnerLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Owner Verification</h4>
+						</div>
+						<div class="modal-body">
+							<p>Before we can add your server to our list, you must verify that you are indeed the owner.</p>
+							<p>Please temporarily change your Message of the Day (MotD) to the code below, and click the "Verify" button.</p>
+							<pre>{{ @verify_owner_hash }}</pre>
+							<p>After you have successfully verified your server, you may change it back to whatever you please.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" id="verify-owner-action" data-loading-text="Verifying...">Verify</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+var addrconfirm = false;
+var lastAddr = "";
+var lastPort = "";
+var votifconfirm = false;
+var onKeypressDelay = 100;
+var lastKeypress = 0;
+var myTimer = null;
+window.addEventListener("load", function(e) {
+	$('.badge').tooltip();
+	$('.tag-btn').button();
+	$('#verify-owner').modal({keyboard:false,backdrop:'static',show:false});
+	$('#step-1, #step-2, #step-3, #step-4').keydown(function(e) {
+		if (e.which==13) {
+			e.preventDefault();
+			if(!$(this).children('.next').hasClass('disabled')) $(this).children('.next').click();
+		}
+	});
+	
+	$('#server-name').keypress(function() {
+		enableNextBtn(addrconfirm,1);
+	});
+	$('#server-address, #server-port').keydown(function() {
+		if(lastAddr != $('#server-address').val() || lastPort != $('#server-port').val()) {
+			loadingPing('.server-addr-confirm');
+			newTimer(function() {
+				if($('#server-address').val() == "") return;
+				if($('#server-port').val() == "") return;
+				if($('#server-port').val() == 0) return;
+				pingServer($('#server-address').val(), $('#server-port').val(), updateUiAfterPing('.server-addr-confirm', function(isOnline){
+					if($('#server-name').val() != "") enableNextBtn(isOnline,1);
+					addrconfirm = isOnline;
+					lastAddr = $('#server-address').val();
+					lastPort = $('#server-port').val();
+				}));
+			});
+		}
+		lastAddr = $('#server-address').val();
+		lastPort = $('#server-port').val();
+	});
+	
+	$('#server-query-port').keydown(function() {
+		if($('#server-query-port').val() != "") {
+			enableNextBtn(false,2);
+			loadingPing('.server-query-confirm');
+			newTimer(function() {
+				if($('#server-query-port').val() == "") return;
+				if($('#server-query-port').val() == 0) return;
+				queryPing($('#server-address').val(), $('#server-query-port').val(), updateUiAfterPing('.server-query-confirm', function(isOnline){
+					if($('#server-query-port').val() != "") enableNextBtn(isOnline,2);
+					else enableNextBtn(true, 2);
+				}));
+			});
+		} else {
+			enableNextBtn(true,2);
+			$('.server-query-confirm').addClass('hidden');
+			clearTimer();
+		}
+	});
+	
+	$('#votifier-key').keydown(function() {
+		if(votifconfirm && $('#votifier-key').val().length > 128) enableNextBtn(true,3);
+		else if(!votifconfirm && $('#votifier-key').val() == "") enableNextBtn(true,3);
+		else if(votifconfirm && $('#votifier-key').val().length < 128) enableNextBtn(false,3);
+		else if(!votifconfirm && $('#votifier-key').val().length != "") enableNextBtn(false,3);
+	});
+	$('#votifier-port').keydown(function() {
+		if($('#votifier-port').val() != "") {
+			enableNextBtn(false,3);
+			loadingPing('.server-votifier-confirm');
+			newTimer(function() {
+				if($('#votifier-port').val() == "") return;
+				if($('#votifier-port').val() == 0) return;
+				pingServer($('#server-address').val(), $('#votifier-port').val(), updateUiAfterPing('.server-votifier-confirm', function(isOnline){
+					if($('#votifier-port').val() != "") {
+						votifconfirm = isOnline;
+						if($('#votifier-key').val().length > 128) enableNextBtn(isOnline,3);
+						else enableNextBtn(false,3);
+					}
+					else enableNextBtn(true,3);
+				}));
+			});
+		} else {
+			enableNextBtn(true,3);
+			$('.server-votifier-confirm').addClass('hidden');
+			clearTimer();
+		}
+	});
+	
+	$('#verify-owner-action').click(function() {
+		var btn = $(this);
+		btn.button('loading')
+		$.post("{{ @ALIASES.verify_owner }}", {
+				host: $('#server-address').val().trim().toLowerCase(),
+				port: $('#server-port').val().trim(),
+				challenge: $('#verify-owner-challenge').text().trim()
+			}, function( msg ) {
+				var json = $.parseJSON( msg );
+				btn.button('reset')
+				if( json.response === "true" ) {
+					alert("Success!");
+					$('#new-server-form').attr('action', '{{ @ALIASES.add_server }}');
+					$('#new-server-form').submit();
+				} else {
+					$('#verify-owner').find('.modal-body').html('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Oh Snap!</strong> '+json.response+'</div>' + $('#verify-owner').find('.modal-body').html());
+				}
+		});
+	});
+}, true);
+var pingServer = function(addr, loca, callback) {
+	if($.isNumeric(loca)) {
+		$.ajax({
+			type: "POST",
+			url: "{{ @ALIASES.low_level_ping }}",
+			data: { host: addr.trim().toLowerCase(), port: loca }
+		}).done(function( msg ) {
+			callback(msg);
+		});
+	} else {
+		callback(false);
+	}
+}
+var queryPing = function(addr, loca, callback) {
+	if($.isNumeric(loca)) {
+		$.ajax({
+			type: "POST",
+			url: "{{ @ALIASES.minecraft_query_ping }}",
+			data: { host: addr.trim().toLowerCase(), port: loca.trim() }
+		}).done(function( msg ) {
+			callback(msg);
+		});
+	} else {
+		callback(false);
+	}
+}
+var updateUiAfterPing = function(selector, extracallback) {
+	extracallback = typeof extracallback !== 'undefined' ? extracallback : function(){};
+	$(selector).removeClass('hidden');
+	return function(isOnline) {
+		if(isOnline) {
+			$(selector).removeClass('label-danger').removeClass('label-info').addClass('label-success');
+			$(selector).children().removeClass('glyphicon-remove').removeClass('glyphicon-time').addClass('glyphicon-ok');
+		} else {
+			$(selector).removeClass('label-success').removeClass('label-info').addClass('label-danger');
+			$(selector).children().removeClass('glyphicon-ok').removeClass('glyphicon-time').addClass('glyphicon-remove');
+		}
+		extracallback(isOnline);
+	}
+}
+var loadingPing = function(selector) {
+	$(selector).removeClass('label-success').addClass('label-info').removeClass('label-danger');
+	$(selector).children().removeClass('glyphicon-ok').addClass('glyphicon-time').removeClass('glyphicon-remove');
+}
+var enableNextBtn = function(enable, step) {
+	if(enable) $('#step-'+step+'-next').removeClass('disabled');
+	else $('#step-'+step+'-next').addClass('disabled');
+}
+var newTimer = function(callback) {
+	if(myTimer == null) {
+		myTimer = setInterval(function(){
+			if(lastKeypress < onKeypressDelay) {
+				lastKeypress++;
+			} else {
+				callback();
+				clearInterval(myTimer);
+				myTimer = null;
+				lastKeypress = 0;
+			}
+		}, 1);
+	} else if(lastKeypress < onKeypressDelay) {
+		lastKeypress = 0;
+	} 
+}
+var clearTimer = function() {
+	clearInterval(myTimer);
+	myTimer = null;
+	lastKeypress = 0;
+}
+</script>

@@ -1,0 +1,42 @@
+
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar navbar-inverse"></span>
+					<span class="icon-bar navbar-inverse"></span>
+					<span class="icon-bar navbar-inverse"></span>
+				</button>
+				<a class="navbar-brand" href="{{ @ALIASES.home }}">McLister</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li{{ @PATH==@ALIASES.add_server?' class="active"':'' }}><a href="{{ @ALIASES.add_server }}">Add Server</a></li>
+					<li{{ @PATH==@ALIASES.random?' class="active"':'' }}><a href="{{ @ALIASES.random }}">Random</a></li>
+				</ul>
+				<check if="{{ @is_logged_in==true }}">
+				<true>
+				<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ @get_current_user()['name'] }}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="{{ @ALIASES.members }}/account">My Account</a></li>
+						<li><a href="{{ @ALIASES.members }}/servers">My Servers</a></li>
+						<li><a href="{{ @ALIASES.members }}/mcpoints">McPoints: {{ @get_current_user()['mcpoints'] }}</a></li>
+						<li class="divider"></li>
+						<li><a href="{{ @ALIASES.logout }}">Log out</a></li>
+					</ul>
+				</li>
+				</ul>
+				</true>
+				<false>
+				<form class="navbar-form navbar-right" method="get" action="https://clef.io/iframes/qr">
+					<input type="hidden" name="app_id" value="{{ @clef_public_key }}" />
+					<input type="hidden" name="redirect_url" value="http://{{ @JAR.domain }}{{ @ALIASES.clef }}?next_page={{ @PATH }}" />
+					<button type="submit" class="clef btn btn-success">Log in with Clef</button>
+				</form>
+				</false>
+				</check>
+			</div><!--/.navbar-collapse -->
+		</div>
+	</div>

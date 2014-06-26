@@ -1,0 +1,7 @@
+<a href="{{ @ALIASES.home }}">McLister!</a> <a href="{{ @ALIASES.add_server }}">Add a Server!</a> 
+<br/>
+<ul>
+	<repeat group="{{ @result }}" value="{{ @item }}">
+		<li title="{{ @item.name  }}"><a href="{{ @ALIASES.info }}/{{ @item.identifier }}-{{ @item.name }}">{{ @item.address  }}:{{ @item.port  }} is {{ @item.is_online ? "online" : "offline"  }}</a></li>
+	</repeat>
+</ul>
